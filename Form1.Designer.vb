@@ -56,16 +56,20 @@ Partial Class Form1
         ColorDialog1 = New ColorDialog()
         SaveFileDialog1 = New SaveFileDialog()
         FontDialog1 = New FontDialog()
+        Label1 = New Label()
         MenuStrip1.SuspendLayout()
         SuspendLayout()
         ' 
         ' TextBox1
         ' 
-        TextBox1.Location = New Point(2, 27)
+        TextBox1.Dock = DockStyle.Fill
+        TextBox1.Location = New Point(0, 24)
         TextBox1.Multiline = True
         TextBox1.Name = "TextBox1"
-        TextBox1.Size = New Size(797, 411)
+        TextBox1.ScrollBars = ScrollBars.Both
+        TextBox1.Size = New Size(800, 436)
         TextBox1.TabIndex = 0
+        TextBox1.WordWrap = False
         ' 
         ' MenuStrip1
         ' 
@@ -262,16 +266,29 @@ Partial Class Form1
         ' 
         PrintDialog1.UseEXDialog = True
         ' 
+        ' Label1
+        ' 
+        Label1.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        Label1.AutoSize = True
+        Label1.BackColor = SystemColors.ControlLightLight
+        Label1.Location = New Point(678, 9)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(56, 15)
+        Label1.TabIndex = 2
+        Label1.Text = "Ln:  , Col:"
+        Label1.TextAlign = ContentAlignment.MiddleLeft
+        ' 
         ' Form1
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(800, 460)
+        Controls.Add(Label1)
         Controls.Add(TextBox1)
         Controls.Add(MenuStrip1)
         MainMenuStrip = MenuStrip1
         Name = "Form1"
-        Text = "Form1"
+        Text = "notepad"
         MenuStrip1.ResumeLayout(False)
         MenuStrip1.PerformLayout()
         ResumeLayout(False)
@@ -312,4 +329,5 @@ Partial Class Form1
     Friend WithEvents ColorDialog1 As ColorDialog
     Friend WithEvents SaveFileDialog1 As SaveFileDialog
     Friend WithEvents FontDialog1 As FontDialog
+    Friend WithEvents Label1 As Label
 End Class
