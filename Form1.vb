@@ -26,8 +26,6 @@
 
     End Sub
 
-
-
     Private Sub TextBox1_Click(sender As Object, e As EventArgs) Handles TextBox1.Click
         UpdateCursorPosition()
     End Sub
@@ -39,10 +37,10 @@
     Private Sub UpdateCursorPosition()
         Dim cursorIndex As Integer = TextBox1.SelectionStart
 
-        If TextBox1.SelectionLength > 0 Then
-            Label1.Text = "Ln:  , Col:"
-            Return
-        End If
+        ' If TextBox1.SelectionLength > 0 Then
+        'Label1.Text = "Ln:  , Col:"
+        ' Return
+        ' End If
 
         Dim row As Integer = TextBox1.GetLineFromCharIndex(cursorIndex) + 1
         Dim col As Integer = cursorIndex - TextBox1.GetFirstCharIndexFromLine(row - 1) + 1

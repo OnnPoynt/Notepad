@@ -268,7 +268,7 @@ Partial Class Form1
         ' 
         ' Label1
         ' 
-        Label1.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        Label1.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         Label1.AutoSize = True
         Label1.BackColor = SystemColors.ControlLightLight
         Label1.Location = New Point(678, 9)
