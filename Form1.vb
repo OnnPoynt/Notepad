@@ -7,9 +7,11 @@
     Private Sub NewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewToolStripMenuItem.Click
         If TextBox1.Modified Then
             Dim result As DialogResult = MessageBox.Show("Do you want to save current changes...?", "Save Changes", MessageBoxButtons.YesNoCancel)
+            TextBox1.Text = ""
 
             If result = DialogResult.Yes Then
                 TextBox1.Clear()
+                My.Computer.FileSystem.WriteAllText(SaveFileDialog1.FileName, TextBox1.Text, False)
             ElseIf result = DialogResult.No Then
                 TextBox1.Clear()
             End If
@@ -37,11 +39,6 @@
     Private Sub UpdateCursorPosition()
         Dim cursorIndex As Integer = TextBox1.SelectionStart
 
-        ' If TextBox1.SelectionLength > 0 Then
-        'Label1.Text = "Ln:  , Col:"
-        ' Return
-        ' End If
-
         Dim row As Integer = TextBox1.GetLineFromCharIndex(cursorIndex) + 1
         Dim col As Integer = cursorIndex - TextBox1.GetFirstCharIndexFromLine(row - 1) + 1
 
@@ -50,5 +47,35 @@
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
         Application.Exit()
+    End Sub
+
+    Private Sub SaveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveToolStripMenuItem.Click
+        If SaveFileDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
+            My.Computer.FileSystem.WriteAllText(SaveFileDialog1.FileName, TextBox1.Text, False)
+        End If
+    End Sub
+
+    Private Sub PrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem.Click
+        PrintDialog1.ShowDialog()
+    End Sub
+
+    Private Sub UndoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UndoToolStripMenuItem.Click
+        TextBox1.Undo()
+    End Sub
+
+    Private Sub CutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CutToolStripMenuItem.Click
+        TextBox1.Cut()
+    End Sub
+
+    Private Sub CopyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CopyToolStripMenuItem.Click
+        TextBox1.Copy()
+    End Sub
+
+    Private Sub PasteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PasteToolStripMenuItem.Click
+        TextBox1.Paste()
+    End Sub
+
+    Private Sub SelectAllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectAllToolStripMenuItem.Click
+        TextBox1.SelectAll()
     End Sub
 End Class
