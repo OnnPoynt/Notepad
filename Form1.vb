@@ -1,4 +1,5 @@
 ﻿Public Class Form1
+    Private formCount As Integer = 0
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
@@ -10,8 +11,9 @@
             TextBox1.Text = ""
 
             If result = DialogResult.Yes Then
-                TextBox1.Clear()
-                My.Computer.FileSystem.WriteAllText(SaveFileDialog1.FileName, TextBox1.Text, False)
+                If SaveFileDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
+                    My.Computer.FileSystem.WriteAllText(SaveFileDialog1.FileName, TextBox1.Text, False)
+                End If
             ElseIf result = DialogResult.No Then
                 TextBox1.Clear()
             End If
@@ -45,7 +47,24 @@
         Label1.Text = $"Ln: {row}, Col: {col}"
     End Sub
 
+    Private Sub TextBox1_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBox1.KeyDown
+        UpdateCursorPosition()
+    End Sub
+
+
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
+        If TextBox1.Modified Then
+            Dim result As DialogResult = MessageBox.Show("Do you want to save current changes before exiting?", "Save Changes", MessageBoxButtons.YesNoCancel)
+
+            If result = DialogResult.Yes Then
+                If SaveFileDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
+                    My.Computer.FileSystem.WriteAllText(SaveFileDialog1.FileName, TextBox1.Text, False)
+                End If
+            ElseIf result = DialogResult.Cancel Then
+                Return
+            End If
+        End If
+
         Application.Exit()
     End Sub
 
@@ -77,5 +96,13 @@
 
     Private Sub SelectAllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectAllToolStripMenuItem.Click
         TextBox1.SelectAll()
+    End Sub
+
+    Private Sub NewWindowToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewWindowToolStripMenuItem.Click
+        Dim newForm As New Form1()
+        formCount += 1
+        newForm.Text = "Notepad " & formCount.ToString()
+        newForm.Show()
+
     End Sub
 End Class
